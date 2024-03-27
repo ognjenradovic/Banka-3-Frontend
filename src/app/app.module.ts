@@ -38,6 +38,8 @@ import { PayingComponent } from './paying/paying.component';
 import { ExchangeComponent } from './exchange/exchange.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PasswordConfirmationComponent } from './reset-password/password-confirmation/password-confirmation.component';
+import { CreditRequestComponent } from './credit-request/credit-request.component';
+import { CreditListComponent } from './credit-list/credit-list.component';
 //import { PasswordActivationComponent } from './reset-password/password-confirmation/password-activation.component';
 
 
@@ -69,6 +71,8 @@ import { PasswordConfirmationComponent } from './reset-password/password-confirm
     ResetPasswordComponent,
     PasswordActivationComponent,
     PasswordConfirmationComponent,
+    CreditRequestComponent,
+    CreditListComponent,
 
   ],
   imports: [

@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<div class="accountsView">
+    <div class="container">
+      <div class="accountsScroller">
+        <span style="text-align: center" class="h2">Pregled racuna</span>
+        <div class="selectCardWrapper">
+            <div class="arrowWrapper" (click)="previousAccount()">
+                <img height="48px" width="48px" class="arrow" src="assets/arrow-left.svg" alt="Next" class="arrow-svg">
+            </div>
+  
+          <!-- Display selected account details -->
+          <div class="accountCard" (click)="displayDetails()">
+            <div class="cardLogoWrapper">
+              <div class="cardLogo"></div>
+            </div>
+            <div class="cardInfoWrapper">
+                <span class="p">Broj racuna</span>
+              <p class="h4 blueText">{{ selectedAccount.accountNumber }}</p>
+              <span class="p">Raspolozivo stanje</span>
+              <p class="h4 blueText">{{ selectedAccount.availableBalance }} RSD</p>
+            </div>
+          </div>
+  
+          <div class="arrowWrapper" (click)="nextAccount()">
+            <img height="48px" width="48px" class="arrow" src="assets/arrow-right.svg" alt="Next" class="arrow-svg">
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="transactionView">
+    <div class="myContainer">
+    <span style="text-align: center" class="h2">Pregled transakcija</span>
+    <div class="transactionsWrapper" *ngFor="let transaction of transactions">
+
+        <div class="transactionCard">
+        <div class="transactionDetailsWrapper">
+          <div class="transactionDate">
+                        <!-- Display day -->
+                        <div class="day">{{ getDayFromDate(transaction.date) }}</div>
+                        <!-- Display month -->
+                        <div class="month">{{ getMonthFromDate(transaction.date) }}</div>
+                        <!-- Display year -->
+                        <div class="year">{{ getYearFromDate(transaction.date) }}</div>
+          </div>
+
+          <div class="transactionDetails">
+            <p class="h3 blueText">{{ transaction.tradeAccount }}</p>
+            <span style="text-align: center" class="h3">{{ transaction.amount }} RSD</span>
+          </div>
+        </div>
+          <div class="transactionIconWrapper">
+            <img height="128px" width="128px" class="arrow" [class]="getIconClass(transaction.amount)" src="assets/arrow-left.svg">
+          </div>
+
+        </div>
+      </div>
+    <!-- <div class="transactionsWrapper">
+        <div class="transactionCard">
+            <div class="transactionDate">
+                <p> 01 Mart 2024</p>
+            </div>
+            <div class="transactionDetails">
+                <p>Broj tekuceg racuna na koji je poslat</p>
+                <h3>1,512.00 RSD</h3>
+            </div>
+        </div>
+    </div> -->
+
+</div>
+
+</div>

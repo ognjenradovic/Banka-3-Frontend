@@ -1,0 +1,114 @@
+<html lang="en">
+<body>
+    <app-navbar></app-navbar>
+    <div class="container" >
+        <div class="formContainer">
+            <div class="row">
+                <div class="col-sm">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="h2">Zahtev za kredit</span>
+                    </div>
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="p lighter">{{ account?.accountNumber }}</span>
+                    </div>
+                </div>
+                <!-- <div class="col-sm text-right">
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="h3">Raspoloživo</span>
+                    </div>
+                    <div style="margin: 1rem 0rem 1rem 0rem">
+                        <span class="p lighter">{{ account.availableBalance }}</span>
+                    </div>
+                </div> -->
+            </div>
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                <!-- Dropdown for credit type -->
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Naziv kredita</p>
+                            <select class="inputField" formControlName="creditType">
+                                <option value="gotovinski">Gotovinski</option>
+                                <option value="brzi">Brzi</option>
+                                <option value="stambeni">Stambeni</option>
+                                <option value="investicioni">Investicioni</option>
+                                <option value="travel">Travel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Dropdown for repayment period -->
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Period otplate</p>
+                            <select class="inputField" formControlName="repaymentPeriod">
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="36">36</option>
+                                <option value="48">48</option>
+                                <option value="60">60</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Checkbox for employment status -->
+                <div class="row">
+                    <!-- Input for monthly salary -->
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Iznos mesečne uplate</p>
+                            <input class="inputField" type="text" id="monthlyPaymentAmount" formControlName="amount">
+                            <span class="currency-text">{{ selectedCurrency }}</span>
+                        </div>
+                    </div>
+                    <!-- Date picker for employment start date -->
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Datum zaposlenja</p>
+                            <input class="inputField" type="date" id="employmentDate" formControlName="employmentDate">
+                        </div>
+                    </div>
+                </div>
+                <!-- Text area for purpose of the credit -->
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Svrha</p>
+                            <textarea class="inputField" id="creditPurpose" formControlName="creditPurpose" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <p class="bold">Broj računa</p>
+                            <select class="inputField" formControlName="accountNumber">
+                                <option *ngFor="let account of userAccounts" [value]="account?.accountNumber">{{ account?.accountNumber }}</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="input-container">
+                            <input type="checkbox" id="employed" formControlName="employed">
+                            <label class="myCheckboxText" for="employed">Zaposlen za stalno</label>
+                        </div>
+                    </div>
+    
+                </div>
+
+
+
+
+                <!-- Hidden field for user ID -->
+                <input type="hidden" formControlName="userId" [value]="userId">
+                <!-- Submit button -->
+                <div class="row mt-3">
+                    <div class="col-sm">
+                        <input class="myButtonSecondary" type="submit" value="Nastavi">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

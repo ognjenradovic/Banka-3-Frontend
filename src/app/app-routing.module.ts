@@ -26,6 +26,8 @@ import { ExchangeComponent } from './exchange/exchange.component';
 import { BillComponent } from './bill/bill.component';
 import { PayingComponent } from './paying/paying.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CreditRequestComponent } from './credit-request/credit-request.component';
+import { CreditListComponent } from './credit-list/credit-list.component';
 
 
 const routes: Routes = [
@@ -129,6 +131,16 @@ const routes: Routes = [
   {
     path: 'form-add-firm',
     component: FormAddFirmComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'credit-request',
+    component: CreditRequestComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'credit-list',
+    component: CreditListComponent,
     //canActivate: [AuthGuard]
   },
   {
