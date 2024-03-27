@@ -62,6 +62,19 @@
 .cardLogoWrapper{
     height:100%;
 }
+body,html{
+    height: 100%;
+}
+.sortSelect{
+    margin: 0rem 0rem 1rem 0rem;
+    border:0px;
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent;
+    padding:0.3rem 0.3rem 0.3rem 0rem;
+    color:var(--blue-medium);
+    border-bottom: 1px solid var(--blue-medium);
+}
 .myModalWrapper{
 position: fixed;
 z-index: 5;
@@ -71,11 +84,24 @@ width: 100%;
 display:none;
 justify-content: center;
 align-items: center;
-
+}
+.sortWrapper{
+    display: flex;
+    justify-content: space-between;
 }
 .formGroup {
     margin-bottom: 1rem;
 }
+
+.h2,.h3,.h4{
+    margin:0rem 0rem 0.1rem;
+}
+
+html, body {
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
+  }
 
 .formGroup label {
     display: block;
@@ -114,6 +140,8 @@ width: 80%;
     /* background-color: var(--background-main); */
     background-color: #f6f6f6;
     width: 100%;
+    min-height: 100vh;
+    height: 100%;
     padding-top:1rem;
 }
 .cardInfoWrapper{
@@ -128,26 +156,33 @@ width: 80%;
 .transactionCard{
     display: flex;
     flex-direction: row;
-    background-color: white;
+    background-color: #D6E4ED;
     margin-top: 1rem;
     justify-content: space-between;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
-    -webkit-box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
+    padding: 0.5rem;
+    /* -webkit-box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
     -moz-box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
-    box-shadow: 1px 8px 9px 0px rgba(209,209,209,1);
+    box-shadow: 1px 8px 9px 0px rgba(209,209,209,1); */
 }
 .transactionDate{
     width:7rem;
     padding:0.6rem;
     background-color:var(--blue-dark);
     color:white;
-}   
+} 
+.buttonWrapper {
+    display: flex;
+    flex-direction: column-reverse;
+}  
 .transactionDetails{
     padding:0.7rem 0.7rem 0.7rem 1rem;
 }
 .transactionDetailsWrapper{
     display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 .convertArrow{
 height: 100%;
@@ -170,6 +205,9 @@ align-items: center;
 .arrow{
     width: 4rem;
     height:4rem;
+}
+.myButtonPrimary{
+    box-shadow: none;
 }
 .day{
 font-size: 2rem;

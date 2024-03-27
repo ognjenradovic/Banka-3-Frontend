@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'app-credit-request',
@@ -10,66 +11,85 @@ import { Router } from '@angular/router';
 export class CreditRequestComponent implements OnInit {
 
   formGroup!: FormGroup;
-  userId: string = 'user123'; // Example user ID, replace with actual user ID retrieval logic
-  userAccounts: any[] = []; // Array to store user's accounts
-  account: any; // Assuming you're receiving the account data from the router
-  selectedCurrency: string = ''; // Variable to store the selected currency
+  userId: string = 'user123';
+  userAccounts: any[] = [];
+  account: any;
+  selectedCurrency: string = 'EUR';
 
   constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.preloadUserAccounts();
-    // Initialize form group and set up validators
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
     this.formGroup = this.formBuilder.group({
       creditType: ['', Validators.required],
       accountNumber: ['', Validators.required],
-      amount: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
       repaymentPeriod: ['', Validators.required],
       employed: [false],
-      monthlySalary: [''],
-      employmentDate: [''],
+      monthlySalary: ['', [Validators.required, Validators.pattern(/^\d*\.?\d*$/)]],
+      employmentDate: ['', Validators.required],
       creditPurpose: ['', Validators.required],
       userId: [this.userId]
     });
-    
-    // Retrieve account data from router extras
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation && navigation.extras.state) {
-      this.account = navigation.extras.state['account'];
-      // Assuming account data contains a list of user's accounts
-      this.userAccounts = this.account.accounts;
-      // if (this.userAccounts.length > 0) {
-      //   this.formGroup.patchValue({ accountNumber: this.userAccounts[0].accountNumber }); // Select the first account by default
-      // }
-    }
+
+
+    this.formGroup.controls['amount'].setAsyncValidators(async (control: AbstractControl) => {
+      return new Promise<ValidationErrors | null>(resolve => {
+        setTimeout(() => {
+          if (control.value && isNaN(control.value.replace(',', '.'))) {
+            resolve({ 'invalidNumber': true });
+          } else {
+            resolve(null);
+          }
+        }, 500);
+      });
+    });
+
+    this.formGroup.controls['accountNumber'].valueChanges.subscribe(selectedAccountNumber => {
+      const selectedAccount = this.userAccounts.find(account => account.accountNumber === selectedAccountNumber);
+      if (selectedAccount) {
+        this.selectedCurrency = selectedAccount.currency;
+      }
+    });
   }
 
   onSubmit(): void {
     if (this.formGroup.valid) {
-      // Form is valid, proceed with submission
       const formData = this.formGroup.value;
-      // You can now send formData to your backend for processing
       console.log(formData);
-      // For demonstration purposes, resetting the form after submission
       this.formGroup.reset();
     } else {
-      // Form is invalid, display error message or handle accordingly
-      alert("Fields not filled correctly.")
+      this.validateAllFormFields(this.formGroup);
+    }
+  }
+  updateSelectedCurrency(event: any): void {
+    const selectedAccountNumber = event.target.value;
+    const selectedAccount = this.userAccounts.find(account => account.accountNumber === selectedAccountNumber);
+    if (selectedAccount) {
+      this.selectedCurrency = selectedAccount.currency;
     }
   }
 
+
+  validateAllFormFields(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+
   preloadUserAccounts(): void {
-    // Simulating preloading user accounts as an array
-    // This can be replaced with actual API calls to fetch user account data from the backend
     this.userAccounts = [
       { accountNumber: '1234567890', accountName: 'Savings Account', currency: 'EUR' },
       { accountNumber: '0987654321', accountName: 'Checking Account', currency: 'USD' },
-      // Add more account objects as needed
     ];
-
-    // Select the first account by default in the dropdown menu if available
-    // if (this.userAccounts.length > 0) {
-    //   this.formGroup.patchValue({ accountNumber: this.userAccounts[0].accountNumber });
-    // }
   }
 }

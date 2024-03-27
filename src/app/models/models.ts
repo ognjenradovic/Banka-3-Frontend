@@ -60,3 +60,16 @@ export interface Role {
 export interface Token {
   token: string
 }
+
+export interface Credit{
+  name: string,
+  accountNumber: string,
+  amount: number,
+  paymentPeriod: number,
+  fee: number,
+  startDate: number,
+  endDate: number,
+  monthlyFee: number,
+  remainingAmount: number,
+  currencyMark: string
+}
