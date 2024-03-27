@@ -10,6 +10,12 @@
     font-size: 0.8rem;
   }
 
+  .myButtonPrimary:disabled {
+    background-color: #b2b2b2; /* Adjust the color as needed */
+    color: #ffffff; /* Adjust the color as needed */
+    /* Add any additional styling as necessary */
+}
+
 p {
     margin: 1rem 0rem 0rem 0rem;
     color:var(--blue-dark);

@@ -8,11 +8,10 @@ import { Credit } from '../models/models';
   styleUrls: ['./credit-list.component.css']
 })
 export class CreditListComponent {
-  credits: Credit[] = []; // Replace transactions with credits array
+  credits: Credit[] = [];
 
   constructor(private router: Router) {
-    // Initialize or fetch credits data here
-    this.fetchMockCredits(); // Fetch credits for a certain user
+    this.fetchMockCredits();
   }
 
   sortCredits(sortOption: string) {
@@ -24,7 +23,6 @@ export class CreditListComponent {
   }
 
   fetchMockCredits() {
-    // Mock data for credits
     const mockCredits: Credit[] = [
       { 
         name: 'Credit 1',
@@ -50,27 +48,11 @@ export class CreditListComponent {
         remainingAmount: 7200,
         currencyMark: 'EUR'
       }
-      // Add more mock credits if needed
     ];
 
     this.credits = mockCredits;
   }
 
-  // Uncomment this method for actual fetching from API
-  /*
-  fetchCreditsForUser() {
-    // Make API call to fetch credits for the user
-    // Example:
-    // this.http.get<Credit[]>('/api/credits?userId=<userId>').subscribe(
-    //   (response) => {
-    //     this.credits = response;
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching credits:', error);
-    //   }
-    // );
-  }
-  */
 
   sortByPriceAsc() {
     this.credits.sort((a, b) => a.amount - b.amount);

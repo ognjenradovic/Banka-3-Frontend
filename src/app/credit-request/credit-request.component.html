@@ -125,7 +125,8 @@
                 <div class="row mt-2">
                     <div class="col-sm">
                         
-                        <input class="myButtonPrimary" type="submit" value="Pošalji zahtev">
+                        <input class="myButtonPrimary" type="submit" value="Pošalji zahtev" [disabled]="!formGroup.valid">
+
                         <div *ngIf="!formGroup.valid" class="text-danger">
                             Nisu sva polja popunjena
                         </div>
